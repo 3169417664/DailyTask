@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardBackgroundColor="@color/black"
+    app:cardCornerRadius="@dimen/dp_16">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="@dimen/dp_4">
+
+        <com.pengxh.daily.app.widget.WaveProgressView
+            android:id="@+id/waveProgressView"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24" />
+
+        <View
+            android:layout_width="@dimen/dividerLine"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="6dp"
+            android:layout_marginVertical="@dimen/dp_4"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/timeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30s"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

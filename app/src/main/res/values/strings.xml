@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DailyTask</string>
+    <string name="notification_monitor_service_name">DailyTask通知监听服务</string>
+</resources>

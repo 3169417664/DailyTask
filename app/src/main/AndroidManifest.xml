@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- 悬浮窗 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+
+    <!-- 前台通知（通知栏常驻） -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- 此权限在适用于Android 10以下（包含），Android 11 引入queries，但勉强能用，再往上就不行了，只能通过queries查询指定的应用 -->
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        android:maxSdkVersion="30"
+        tools:ignore="QueryAllPackagesPermission" />
+
+    <!-- AlarmManager 精确闹钟权限（Android 12+） -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+
+    <application
+        android:name=".DailyTaskApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/Theme.DailyTask"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.SettingsActivity" />
+        <activity android:name=".ui.MessageChannelActivity" />
+        <activity android:name=".ui.TaskConfigActivity" />
+        <activity android:name=".ui.QuestionAndAnswerActivity" />
+
+        <service android:name=".service.FloatingWindowService" />
+        <service
+            android:name=".service.ForegroundRunningService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="background_keep_alive" />
+        </service>
+        <service
+            android:name=".service.NotificationMonitorService"
+            android:enabled="true"
+            android:exported="false"
+            android:label="@string/notification_monitor_service_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.CountDownTimerService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <service
+            android:name=".service.CaptureImageService"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
+
+        <receiver
+            android:name=".utils.TaskResetReceiver"
+            android:exported="false" />
+    </application>
+
+    <queries>
+        <package android:name="com.alibaba.android.rimet" />
+        <package android:name="com.tencent.mm" />
+        <package android:name="com.tencent.wework" />
+        <package android:name="com.ss.android.lark" />
+        <package android:name="com.seeyon.cmp" />
+        <package android:name="com.tencent.mobileqq" />
+        <package android:name="com.tencent.tim" />
+        <package android:name="com.eg.android.AlipayGphone" />
+    </queries>
+</manifest>
